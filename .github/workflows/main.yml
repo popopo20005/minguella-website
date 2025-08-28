@@ -19,6 +19,7 @@ jobs:
         node-version: '18'
         
     - name: Check Minguella app
+      id: check-app
       run: |
         echo "🔍 Checking Minguella app..."
         
@@ -29,7 +30,7 @@ jobs:
         # バージョン情報をファイルに保存
         echo "{\"version\":\"$CURRENT_VERSION\",\"lastChecked\":\"$(date -u +%Y-%m-%dT%H:%M:%S.%3NZ)\"}" > app-info.json
         
-        # 今回は常に「更新なし」として動作確認
+        # GitHub Actions出力を設定
         echo "has_update=false" >> $GITHUB_OUTPUT
         echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
         
