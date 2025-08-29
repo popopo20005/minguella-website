@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://https://minguella-website.netlify.app//sitemap.xml
+
+# クロール頻度の最適化
+Crawl-delay: 1
+
+# 重要ページの明示
+Allow: /index.html
+Allow: /#features
+Allow: /#benefits
+
+# 検索エンジン向け情報
+# Minguella - 無料学習支援クイズアプリ
+# 間違い問題特化学習で効率的な暗記学習を実現
