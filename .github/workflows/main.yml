@@ -4,11 +4,6 @@ on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
-    inputs:
-      force_update:
-        description: 'Force update homepage'
-        required: false
-        default: 'false'
 
 jobs:
   check-and-update:
@@ -18,246 +13,108 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       
-    - name: Check Minguella app with curl
+    - name: Check Minguella app
       id: check-app
       run: |
-        echo "🔍 Fetching Minguella app with curl..."
+        echo "Checking Minguella app..."
         
-        # curlでHTMLを取得
-        APP_HTML=$(curl -s https://minguella-quiz-v4.netlify.app)
-        echo "✅ HTML fetched successfully"
+        # アプリのHTMLを取得
+        curl -s https://minguella-quiz-v4.netlify.app > app.html
+        echo "HTML downloaded"
         
-        # タイトルを抽出
-        APP_TITLE=$(echo "$APP_HTML" | grep -o '<title[^>]*>[^<]*</title>' | sed 's/<[^>]*>//g' | head -1)
-        echo "App title: $APP_TITLE"
+        # タイトルからバージョンを抽出
+        TITLE=$(grep -o '<title[^>]*>[^<]*</title>' app.html | sed 's/<[^>]*>//g')
+        echo "App title: $TITLE"
         
-        # バージョンを抽出 (v1.4.0など)
-        NEW_VERSION=$(echo "$APP_TITLE" | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | sed 's/v//' | head -1)
-        
-        # バージョンが見つからない場合のデフォルト
-        if [ -z "$NEW_VERSION" ]; then
-          NEW_VERSION="1.4.0"
-          echo "⚠️ Version not found in title, using default: $NEW_VERSION"
-        else
-          echo "🔍 Detected version: $NEW_VERSION"
+        # バージョン番号を抽出
+        VERSION=$(echo "$TITLE" | grep -o 'v[0-9]\.[0-9]\.[0-9]' | head -1 | sed 's/v//')
+        if [ -z "$VERSION" ]; then
+          VERSION="1.4.0"
         fi
+        echo "Current version: $VERSION"
         
-        # 前回のバージョンを確認
-        OLD_VERSION="1.0.0"
-        if [ -f "app-info.json" ]; then
-          OLD_VERSION=$(cat app-info.json | grep -o '"version":"[^"]*' | sed 's/"version":"//' | head -1)
-          if [ -z "$OLD_VERSION" ]; then
-            OLD_VERSION="1.0.0"
-          fi
+        # 前回のバージョンをチェック
+        if [ -f version.txt ]; then
+          OLD_VERSION=$(cat version.txt)
+        else
+          OLD_VERSION="1.0.0"
         fi
         echo "Previous version: $OLD_VERSION"
         
-        # バージョン情報を保存
-        cat > app-info.json << EOF
-{
-  "version": "$NEW_VERSION",
-  "lastChecked": "$(date -u +%Y-%m-%dT%H:%M:%S.%3NZ)",
-  "appUrl": "https://minguella-quiz-v4.netlify.app",
-  "title": "$APP_TITLE"
-}
-EOF
+        # バージョンを保存
+        echo "$VERSION" > version.txt
         
-        # 更新判定
-        HAS_UPDATE="false"
-        if [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
-          HAS_UPDATE="true"
-          echo "🚀 Version change detected: v$OLD_VERSION → v$NEW_VERSION"
+        # 変更チェック
+        if [ "$OLD_VERSION" != "$VERSION" ]; then
+          echo "has_update=true" >> $GITHUB_OUTPUT
+          echo "Version changed: $OLD_VERSION to $VERSION"
         else
-          echo "✅ No version changes (current: v$NEW_VERSION)"
+          echo "has_update=false" >> $GITHUB_OUTPUT
+          echo "No version change"
         fi
         
-        # 強制更新フラグをチェック
-        if [ "${{ github.event.inputs.force_update }}" == "true" ]; then
-          HAS_UPDATE="true"
-          echo "🔄 Force update requested"
-        fi
-        
-        # GitHub Actions出力
-        echo "has_update=$HAS_UPDATE" >> $GITHUB_OUTPUT
         echo "old_version=$OLD_VERSION" >> $GITHUB_OUTPUT
-        echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-        echo "app_title=$APP_TITLE" >> $GITHUB_OUTPUT
+        echo "new_version=$VERSION" >> $GITHUB_OUTPUT
         
-        echo "📝 App info saved to app-info.json"
+        # 一時ファイル削除
+        rm -f app.html
         
-    - name: Update homepage if version changed
+    - name: Update homepage
       if: steps.check-app.outputs.has_update == 'true'
       run: |
-        echo "📝 Updating homepage..."
-        
+        echo "Updating homepage..."
         OLD_VER="${{ steps.check-app.outputs.old_version }}"
         NEW_VER="${{ steps.check-app.outputs.new_version }}"
         
         # HTMLファイルのバージョンを更新
-        if [ -f "index.html" ]; then
-          # v1.4.0 形式のバージョンを更新
-          sed -i "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/v$NEW_VER/g" index.html
-          
-          # 更新コメントを追加
-          COMMENT="  <!-- Auto-updated: $(date) - v$OLD_VER to v$NEW_VER -->"
-          sed -i "s|</head>|$COMMENT\n</head>|" index.html
-          
-          echo "✅ Homepage updated: v$OLD_VER → v$NEW_VER"
-        else
-          echo "⚠️ index.html not found"
-        fi
+        sed -i "s/v[0-9]\.[0-9]\.[0-9]/v$NEW_VER/g" index.html
+        echo "Homepage updated to v$NEW_VER"
         
-    - name: Send detailed notification
+    - name: Send notification
       run: |
-        echo "📤 Sending notification..."
-        
+        echo "Sending notification..."
         OLD_VER="${{ steps.check-app.outputs.old_version }}"
         NEW_VER="${{ steps.check-app.outputs.new_version }}"
-        APP_TITLE="${{ steps.check-app.outputs.app_title }}"
         
-        # 通知内容を準備
         if [ "${{ steps.check-app.outputs.has_update }}" == "true" ]; then
-          STATUS="🚀 バージョンアップを検出しました！"
-          DETAILS="v$OLD_VER → v$NEW_VER"
-          ACTION="ホームページを自動更新しました"
-          COLOR="65280"
+          MESSAGE="🚀 Minguellaアプリが更新されました！ v$OLD_VER → v$NEW_VER"
         else
-          STATUS="✅ 定期チェック完了"
-          DETAILS="現在のバージョン: v$NEW_VER"
-          ACTION="変更はありませんでした"
-          COLOR="3447003"
+          MESSAGE="✅ Minguella定期チェック完了 (v$NEW_VER)"
         fi
         
         # Slack通知
-        if [ ! -z "$SLACK_WEBHOOK_URL" ]; then
+        if [ -n "${{ secrets.SLACK_WEBHOOK_URL }}" ]; then
           curl -X POST -H 'Content-type: application/json' \
-            --data '{
-              "text": "'"$STATUS"'",
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "🤖 Minguella自動監視システム"
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*ステータス:*\n'"$STATUS"'"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*バージョン:*\n'"$DETAILS"'"
-                    }
-                  ]
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*アプリタイトル:* '"$APP_TITLE"'\n*アクション:* '"$ACTION"'\n*チェック時刻:* '"$(date)"'"
-                  }
-                }
-              ]
-            }' \
-            $SLACK_WEBHOOK_URL
-          echo "✅ Slack notification sent"
-        else
-          echo "ℹ️ SLACK_WEBHOOK_URL not configured"
+            --data "{\"text\":\"$MESSAGE\"}" \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
+          echo "Slack notification sent"
         fi
         
         # Discord通知
-        if [ ! -z "$DISCORD_WEBHOOK_URL" ]; then
+        if [ -n "${{ secrets.DISCORD_WEBHOOK_URL }}" ]; then
           curl -X POST -H 'Content-type: application/json' \
-            --data '{
-              "username": "Minguella Monitor Bot",
-              "embeds": [
-                {
-                  "title": "'"$STATUS"'",
-                  "color": '"$COLOR"',
-                  "fields": [
-                    {
-                      "name": "📊 バージョン情報",
-                      "value": "'"$DETAILS"'",
-                      "inline": true
-                    },
-                    {
-                      "name": "📅 チェック時刻", 
-                      "value": "'"$(date)"'",
-                      "inline": true
-                    },
-                    {
-                      "name": "📱 アプリタイトル",
-                      "value": "'"$APP_TITLE"'",
-                      "inline": false
-                    },
-                    {
-                      "name": "🎯 実行アクション",
-                      "value": "'"$ACTION"'",
-                      "inline": false
-                    }
-                  ],
-                  "footer": {
-                    "text": "GitHub Actions 自動監視システム"
-                  },
-                  "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"'"
-                }
-              ]
-            }' \
-            $DISCORD_WEBHOOK_URL
-          echo "✅ Discord notification sent"
-        else
-          echo "ℹ️ DISCORD_WEBHOOK_URL not configured"
+            --data "{\"username\":\"Minguella Bot\",\"content\":\"$MESSAGE\"}" \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
+          echo "Discord notification sent"
         fi
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        SITE_URL: ${{ secrets.SITE_URL }}
         
-    - name: Commit changes if updated
+    - name: Commit changes
       if: steps.check-app.outputs.has_update == 'true'
       run: |
         git config --global user.name 'Minguella Auto-Update Bot'
         git config --global user.email 'actions@github.com'
+        git add .
+        git commit -m "Auto-update to v${{ steps.check-app.outputs.new_version }}"
+        git push
+        echo "Changes committed"
         
-        # 変更があるかチェック
-        if git diff --quiet; then
-          echo "ℹ️ No changes to commit"
-        else
-          git add .
-          git commit -m "🤖 Auto-update: v${{ steps.check-app.outputs.old_version }} → v${{ steps.check-app.outputs.new_version }}"
-          git push
-          echo "✅ Changes committed and pushed"
-        fi
-        
-    - name: Create detailed summary
+    - name: Summary
       run: |
-        echo "## 🤖 Minguella自動監視レポート" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### 📊 チェック結果" >> $GITHUB_STEP_SUMMARY
-        echo "- **チェック日時**: $(date)" >> $GITHUB_STEP_SUMMARY
-        echo "- **アプリタイトル**: ${{ steps.check-app.outputs.app_title }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **現在のバージョン**: v${{ steps.check-app.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **前回のバージョン**: v${{ steps.check-app.outputs.old_version }}" >> $GITHUB_STEP_SUMMARY
-        
+        echo "## Minguella監視結果" >> $GITHUB_STEP_SUMMARY
+        echo "- 日時: $(date)" >> $GITHUB_STEP_SUMMARY
+        echo "- バージョン: v${{ steps.check-app.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
         if [ "${{ steps.check-app.outputs.has_update }}" == "true" ]; then
-          echo "- **更新ステータス**: 🚀 **アップデート検出**" >> $GITHUB_STEP_SUMMARY
-          echo "- **実行アクション**: ホームページ自動更新 & Git push" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🎉 更新完了！" >> $GITHUB_STEP_SUMMARY
-          echo "新しいバージョン v${{ steps.check-app.outputs.new_version }} が検出され、ホームページを自動更新しました。" >> $GITHUB_STEP_SUMMARY
+          echo "- ステータス: 🚀 更新検出" >> $GITHUB_STEP_SUMMARY
         else
-          echo "- **更新ステータス**: ✅ 変更なし" >> $GITHUB_STEP_SUMMARY
-          echo "- **実行アクション**: 定期チェック完了" >> $GITHUB_STEP_SUMMARY
+          echo "- ステータス: ✅ 変更なし" >> $GITHUB_STEP_SUMMARY
         fi
-        
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### 🔗 リンク" >> $GITHUB_STEP_SUMMARY
-        echo "- [🌐 ホームページ](${{ secrets.SITE_URL }})" >> $GITHUB_STEP_SUMMARY  
-        echo "- [🚀 Minguellaアプリ](https://minguella-quiz-v4.netlify.app)" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "---" >> $GITHUB_STEP_SUMMARY
-        echo "*次回自動チェック: 毎日 0:00 UTC (日本時間 9:00)*" >> $GITHUB_STEP_SUMMARY
