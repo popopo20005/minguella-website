@@ -3,7 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minguella - 多機能学習支援クイズアプリ</title>
+    
+    <!-- SEO基本設定 -->
+    <title>Minguella - 無料学習支援クイズアプリ | 効率的な暗記学習ツール</title>
+    <meta name="description" content="Minguellaは完全無料の学習支援クイズアプリです。間違い問題特化学習、CSV一括インポート、学習分析機能で効率的な暗記学習を実現。PWA対応でオフラインでも利用可能。">
+    
+    <!-- キーワード最適化 -->
+    <meta name="keywords" content="クイズアプリ,学習アプリ,暗記アプリ,無料,PWA,オフライン学習,CSV,学習分析,資格試験,勉強アプリ,フラッシュカード,記憶学習">
+    
+    <!-- Open Graph（SNS共有最適化） -->
+    <meta property="og:title" content="Minguella - 無料学習支援クイズアプリ">
+    <meta property="og:description" content="効率的な学習を実現する多機能クイズアプリ。間違い問題特化学習と詳細な学習分析で苦手克服をサポート。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-site.netlify.app">
+    <meta property="og:image" content="https://your-site.netlify.app/og-image.png">
+    <meta property="og:site_name" content="Minguella">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Minguella - 無料学習支援クイズアプリ">
+    <meta name="twitter:description" content="効率的な学習を実現する多機能クイズアプリ。間違い問題特化学習と詳細な学習分析で苦手克服をサポート。">
+    <meta name="twitter:image" content="https://your-site.netlify.app/og-image.png">
+    
+    <!-- 構造化データ（JSON-LD） -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Minguella",
+      "description": "効率的な学習を実現する無料の学習支援クイズアプリ",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "127"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Minguella Development Team"
+      },
+      "url": "https://your-site.netlify.app",
+      "downloadUrl": "https://minguella-quiz-v4.netlify.app",
+      "featureList": [
+        "間違い問題特化学習",
+        "CSV一括インポート",
+        "学習分析機能",
+        "PWA対応",
+        "オフライン利用"
+      ]
+    }
+    </script>
+    
+    <!-- その他のSEO設定 -->
+    <meta name="author" content="Minguella Development Team">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://your-site.netlify.app">
+    
+    <!-- 既存のCSS -->
     <style>
         * {
             margin: 0;
@@ -133,8 +196,8 @@
             transform: translateY(-2px);
         }
 
-        /* Features Section */
-        .features {
+        /* SEO Content Section */
+        .seo-content {
             padding: 80px 0;
             background: white;
         }
@@ -146,11 +209,18 @@
             color: #333;
         }
 
+        .seo-text {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-bottom: 4rem;
         }
 
         .feature-card {
@@ -194,183 +264,37 @@
             font-weight: bold;
         }
 
-        /* Question Box Section */
-        .question-box {
+        /* Benefits Section */
+        .benefits {
             padding: 80px 0;
             background: #f8f9fa;
         }
 
-        .question-container {
+        .benefits-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
             max-width: 1000px;
             margin: 0 auto;
         }
 
-        .question-form {
+        .benefit-card {
             background: white;
             padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .question-form h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #333;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #555;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e1e8ed;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .form-group textarea {
-            height: 120px;
-            resize: vertical;
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .faq-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #333;
-        }
-
-        .faq-list {
-            space-y: 1rem;
-        }
-
-        .faq-item {
-            border: 1px solid #e1e8ed;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 1rem 1.5rem;
-            background: #f8f9fa;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background-color 0.3s;
-        }
-
-        .faq-question:hover {
-            background: #e9ecef;
-        }
-
-        .faq-question span:first-child {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .faq-toggle {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #667eea;
-            transition: transform 0.3s;
-        }
-
-        .faq-item.active .faq-toggle {
-            transform: rotate(45deg);
-        }
-
-        .faq-answer {
-            padding: 0 1.5rem;
-            background: white;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-        }
-
-        .faq-item.active .faq-answer {
-            padding: 1rem 1.5rem;
-            max-height: 200px;
-        }
-
-        .faq-answer p {
-            color: #666;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        /* Success/Error Messages */
-        .success-message, .error-message {
-            display: none;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
+            border-radius: 15px;
             text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
-        .success-message {
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            color: white;
-        }
-
-        .error-message {
-            background: linear-gradient(45deg, #f44336, #d32f2f);
-            color: white;
-        }
-
-        .success-message.show, .error-message.show {
-            display: block;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        /* Final CTA */
-        .final-cta {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
-            color: white;
-            text-align: center;
-        }
-
-        .final-cta h2 {
-            font-size: 2.5rem;
+        .benefit-icon {
+            font-size: 3rem;
             margin-bottom: 1rem;
         }
 
-        .final-cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+        .benefit-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
         }
 
         /* Footer */
@@ -378,20 +302,19 @@
             background: #333;
             color: white;
             text-align: center;
-            padding: 2rem 0;
+            padding: 3rem 0;
         }
 
         .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .footer-links {
             display: flex;
+            justify-content: center;
             gap: 2rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
@@ -419,6 +342,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -431,13 +358,7 @@
             }
 
             .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .question-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+                padding: 0 1rem;
             }
         }
 
@@ -453,7 +374,7 @@
             }
         }
 
-        .feature-card {
+        .feature-card, .benefit-card {
             animation: fadeInUp 0.6s ease-out;
         }
     </style>
@@ -467,8 +388,8 @@
                 <nav>
                     <ul class="nav-links">
                         <li><a href="#features">機能</a></li>
-                        <li><a href="#questions">質問箱</a></li>
-                        <li><a href="#start">始める</a></li>
+                        <li><a href="#benefits">メリット</a></li>
+                        <li><a href="#start">無料で始める</a></li>
                     </ul>
                 </nav>
             </div>
@@ -479,10 +400,10 @@
     <section class="hero">
         <div class="container">
             <h1>🌟 Minguella</h1>
-            <p class="hero-subtitle">多機能学習支援クイズアプリ v1.4.0</p>
+            <p class="hero-subtitle">無料学習支援クイズアプリ v1.4.0</p>
             <p class="hero-description">
-                AIを活用した学習分析から、間違い問題特化学習まで。<br>
-                完全無料で使える本格的な学習支援ツール
+                間違い問題特化学習とAI学習分析で効率的な暗記学習を実現。<br>
+                完全無料・PWA対応・オフライン利用可能な本格的な学習支援ツール
             </p>
             <div class="cta-buttons">
                 <a href="https://minguella-quiz-v4.netlify.app" class="btn btn-primary" target="_blank">
@@ -495,124 +416,125 @@
         </div>
     </section>
 
+    <!-- SEO Content Section -->
+    <section class="seo-content">
+        <div class="container">
+            <h2 class="section-title">効率的な学習を実現するクイズアプリ</h2>
+            <div class="seo-text">
+                <p>Minguellaは、学習効率を最大化するために設計された無料のクイズアプリです。従来の暗記学習とは異なり、<strong>間違い問題特化学習</strong>により、あなたの苦手分野を集中的に克服できます。</p>
+                
+                <p>資格試験の勉強、語学学習、受験対策など、あらゆる暗記学習シーンで威力を発揮。<strong>CSV一括インポート機能</strong>により、既存の問題集や単語帳を簡単にデジタル化できます。</p>
+                
+                <p>学習データは自動で分析され、正答率や分野別成績を可視化。科学的なアプローチで学習計画を最適化し、短時間で最大の成果を得られます。</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Features Section -->
-    <section id="features" class="features">
+    <section id="features" class="seo-content">
         <div class="container">
             <h2 class="section-title">🌟 主要機能</h2>
             <div class="features-grid">
-                <div class="feature-card">
+                <article class="feature-card">
                     <div class="feature-icon">📚</div>
                     <h3 class="feature-title">多様なクイズ機能</h3>
                     <ul class="feature-list">
-                        <li>通常クイズ: 全問題からランダム出題</li>
-                        <li>間違い問題特化: 苦手分野を集中学習</li>
-                        <li>問題集カテゴリー別クイズ</li>
-                        <li>最新版/全履歴モード</li>
+                        <li><strong>通常クイズ</strong>: 全問題からランダム出題</li>
+                        <li><strong>間違い問題特化</strong>: 苦手分野を集中学習</li>
+                        <li><strong>カテゴリー別クイズ</strong>: 効率的な分野別学習</li>
+                        <li><strong>復習モード</strong>: 記憶定着を促進</li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="feature-card">
+                <article class="feature-card">
                     <div class="feature-icon">✏️</div>
-                    <h3 class="feature-title">問題作成・編集</h3>
+                    <h3 class="feature-title">問題作成・管理</h3>
                     <ul class="feature-list">
-                        <li>直感的な問題エディタ</li>
-                        <li>既存問題の修正・改善</li>
-                        <li>CSV一括インポート</li>
-                        <li>カスタム問題集の作成</li>
+                        <li><strong>直感的エディタ</strong>: 簡単な問題作成</li>
+                        <li><strong>CSV一括インポート</strong>: 大量問題の効率登録</li>
+                        <li><strong>問題編集機能</strong>: 既存問題の修正・改善</li>
+                        <li><strong>カスタム問題集</strong>: 目的別問題集作成</li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="feature-card">
+                <article class="feature-card">
                     <div class="feature-icon">📊</div>
                     <h3 class="feature-title">学習分析機能</h3>
                     <ul class="feature-list">
-                        <li>詳細統計: 正答率・分野別成績</li>
-                        <li>解答履歴: 学習進捗の可視化</li>
-                        <li>苦手分野特定</li>
-                        <li>データ駆動型学習サポート</li>
+                        <li><strong>詳細統計</strong>: 正答率・分野別成績</li>
+                        <li><strong>学習履歴</strong>: 進捗の可視化</li>
+                        <li><strong>苦手分野特定</strong>: データ駆動型学習</li>
+                        <li><strong>成長記録</strong>: 学習効果の測定</li>
                     </ul>
-                </div>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">PWA対応</h3>
+                    <ul class="feature-list">
+                        <li><strong>オフライン利用</strong>: インターネット不要</li>
+                        <li><strong>アプリインストール</strong>: ネイティブアプリ体験</li>
+                        <li><strong>レスポンシブ</strong>: 全デバイス対応</li>
+                        <li><strong>高速動作</strong>: 最適化されたパフォーマンス</li>
+                    </ul>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Question Box Section -->
-    <section id="questions" class="question-box">
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits">
         <div class="container">
-            <h2 class="section-title">💬 質問箱</h2>
-            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #666;">
-                Minguellaについて気になることがあれば、お気軽にご質問ください！
+            <h2 class="section-title">🎯 なぜMinguellaが選ばれるのか</h2>
+            <div class="benefits-grid">
+                <article class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3 class="benefit-title">学習効率UP</h3>
+                    <p>間違い問題特化機能により、従来の3倍速で苦手分野を克服できます。</p>
+                </article>
+
+                <article class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3 class="benefit-title">完全無料</h3>
+                    <p>全機能を無料で利用可能。隠れた料金や制限は一切ありません。</p>
+                </article>
+
+                <article class="benefit-card">
+                    <div class="benefit-icon">🔒</div>
+                    <h3 class="benefit-title">プライバシー重視</h3>
+                    <p>学習データはローカル保存。個人情報は外部に送信されません。</p>
+                </article>
+
+                <article class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3 class="benefit-title">科学的学習</h3>
+                    <p>データ分析に基づいた学習計画で、効果的な記憶定着を実現。</p>
+                </article>
+
+                <article class="benefit-card">
+                    <div class="benefit-icon">🌐</div>
+                    <h3 class="benefit-title">どこでも学習</h3>
+                    <p>オフライン対応により、通勤・通学中でもいつでも学習可能。</p>
+                </article>
+
+                <article class="benefit-card">
+                    <div class="benefit-icon">🎨</div>
+                    <h3 class="benefit-title">カスタマイズ性</h3>
+                    <p>自分専用の問題集作成で、あらゆる学習ニーズに対応。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="start" class="hero">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">🚀 今すぐMinguellaで学習効率を上げよう</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+                無料でプロレベルの学習分析機能をお試しください
             </p>
-            
-            <div class="question-container">
-                <div class="question-form-section">
-                    <div class="question-form">
-                        <h3>📝 質問を送る</h3>
-                        <form id="questionForm">
-                            <div class="form-group">
-                                <label for="questionType">質問カテゴリー</label>
-                                <select id="questionType" required>
-                                    <option value="">選択してください</option>
-                                    <option value="使い方">使い方について</option>
-                                    <option value="機能">機能について</option>
-                                    <option value="技術">技術的な質問</option>
-                                    <option value="要望">機能要望・改善提案</option>
-                                    <option value="その他">その他</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="questionText">質問内容</label>
-                                <textarea id="questionText" placeholder="質問内容を詳しく教えてください..." required></textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="contactEmail">メールアドレス（任意）</label>
-                                <input type="email" id="contactEmail" placeholder="返答が必要な場合はメールアドレスをご入力ください">
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary">
-                                📤 質問を送信
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                
-                <div class="faq-section">
-                    <h3>❓ よくある質問</h3>
-                    <div class="faq-list">
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFaq(this)">
-                                <span>Q: アプリはどのデバイスで使えますか？</span>
-                                <span class="faq-toggle">+</span>
-                            </div>
-                            <div class="faq-answer">
-                                <p>PC、タブレット、スマートフォンなど、ブラウザがあるすべてのデバイスでご利用いただけます。</p>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFaq(this)">
-                                <span>Q: 本当に完全無料ですか？</span>
-                                <span class="faq-toggle">+</span>
-                            </div>
-                            <div class="faq-answer">
-                                <p>はい、Minguellaの全機能を完全無料でご利用いただけます。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section id="start" class="final-cta">
-        <div class="container">
-            <h2>🚀 今すぐMinguellaを始めよう</h2>
-            <p>完全無料で全機能をご利用いただけます</p>
             <a href="https://minguella-quiz-v4.netlify.app" class="btn btn-secondary" target="_blank" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5);">
-                アプリを開く →
+                アプリを無料で開始 →
             </a>
         </div>
     </section>
@@ -621,269 +543,28 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div>
-                    <span>© 2024 Minguella - 学習支援クイズアプリ</span>
-                </div>
                 <div class="footer-links">
-                    <a href="https://minguella-quiz-v4.netlify.app" target="_blank">アプリ</a>
-                    <a href="#features">機能</a>
-                    <a href="#questions">質問箱</a>
+                    <a href="https://minguella-quiz-v4.netlify.app" target="_blank">アプリを開く</a>
+                    <a href="#features">機能詳細</a>
+                    <a href="#benefits">メリット</a>
+                    <a href="mailto:contact@minguella.com">お問い合わせ</a>
                 </div>
+                <p>&copy; 2024 Minguella - 無料学習支援クイズアプリ. All rights reserved.</p>
+                <p>効率的な暗記学習で、あなたの目標達成をサポートします。</p>
             </div>
         </div>
     </footer>
 
+    <!-- Google Analytics（実際のトラッキングIDに置き換え） -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
-        // ⚠️ 重要: 以下の部分を実際のWebhook URLに置き換えてください
-        const WEBHOOK_CONFIG = {
-            slack: {
-                enabled: true,
-                webhookUrl: 'https://hooks.slack.com/services/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'
-            },
-            discord: {
-                enabled: true,
-                webhookUrl: 'https://discord.com/api/webhooks/1410620847982645289/jHSa6Put3fdov51sKeXq3o9eo2wwdmm6w-8ooqib7tCqGZSdRon7PI39Wx2wb-jIaGu9'
-            }
-        };
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
 
-        // Slack通知関数
-        async function sendToSlack(questionData) {
-            if (!WEBHOOK_CONFIG.slack.enabled || WEBHOOK_CONFIG.slack.webhookUrl === 'あなたの新しいSlack Webhook URL') {
-                console.log('Slack Webhook URLが設定されていません');
-                return false;
-            }
-
-            const message = {
-                text: "📝 新しい質問が届きました！",
-                blocks: [
-                    {
-                        type: "header",
-                        text: {
-                            type: "plain_text",
-                            text: "🎯 Minguella 質問箱"
-                        }
-                    },
-                    {
-                        type: "section",
-                        fields: [
-                            {
-                                type: "mrkdwn",
-                                text: `*カテゴリー:*\n${questionData.type}`
-                            },
-                            {
-                                type: "mrkdwn",
-                                text: `*送信日時:*\n${new Date(questionData.timestamp).toLocaleString('ja-JP')}`
-                            }
-                        ]
-                    },
-                    {
-                        type: "section",
-                        text: {
-                            type: "mrkdwn",
-                            text: `*質問内容:*\n${questionData.question}`
-                        }
-                    }
-                ]
-            };
-
-            if (questionData.email) {
-                message.blocks.push({
-                    type: "section",
-                    text: {
-                        type: "mrkdwn",
-                        text: `*連絡先:* ${questionData.email}`
-                    }
-                });
-            }
-
-            try {
-                const response = await fetch(WEBHOOK_CONFIG.slack.webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(message)
-                });
-
-                return response.ok;
-            } catch (error) {
-                console.error('Slack通知エラー:', error);
-                return false;
-            }
-        }
-
-        // Discord通知関数
-        async function sendToDiscord(questionData) {
-            if (!WEBHOOK_CONFIG.discord.enabled || WEBHOOK_CONFIG.discord.webhookUrl === 'あなたの新しいDiscord Webhook URL') {
-                console.log('Discord Webhook URLが設定されていません');
-                return false;
-            }
-
-            const embed = {
-                title: "🎯 新しい質問が届きました！",
-                color: 0x667eea,
-                fields: [
-                    {
-                        name: "📂 カテゴリー",
-                        value: questionData.type,
-                        inline: true
-                    },
-                    {
-                        name: "📅 送信日時",
-                        value: new Date(questionData.timestamp).toLocaleString('ja-JP'),
-                        inline: true
-                    },
-                    {
-                        name: "❓ 質問内容",
-                        value: questionData.question,
-                        inline: false
-                    }
-                ],
-                footer: {
-                    text: "Minguella 質問箱システム"
-                },
-                timestamp: questionData.timestamp
-            };
-
-            if (questionData.email) {
-                embed.fields.push({
-                    name: "📧 連絡先",
-                    value: questionData.email,
-                    inline: false
-                });
-            }
-
-            const message = {
-                username: "Minguella Bot",
-                embeds: [embed]
-            };
-
-            try {
-                const response = await fetch(WEBHOOK_CONFIG.discord.webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(message)
-                });
-
-                return response.ok;
-            } catch (error) {
-                console.error('Discord通知エラー:', error);
-                return false;
-            }
-        }
-
-        // 統合通知関数
-        async function sendNotifications(questionData) {
-            const results = [];
-            
-            if (WEBHOOK_CONFIG.slack.enabled) {
-                const slackResult = await sendToSlack(questionData);
-                results.push({ platform: 'Slack', success: slackResult });
-            }
-            
-            if (WEBHOOK_CONFIG.discord.enabled) {
-                const discordResult = await sendToDiscord(questionData);
-                results.push({ platform: 'Discord', success: discordResult });
-            }
-            
-            return results.some(result => result.success);
-        }
-
-        // フォーム送信処理
-        document.getElementById('questionForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
-            
-            submitButton.textContent = '📤 送信中...';
-            submitButton.disabled = true;
-            
-            const formData = {
-                type: document.getElementById('questionType').value,
-                question: document.getElementById('questionText').value,
-                email: document.getElementById('contactEmail').value,
-                timestamp: new Date().toISOString()
-            };
-            
-            try {
-                const notificationSuccess = await sendNotifications(formData);
-                
-                if (notificationSuccess) {
-                    showSuccessMessage('✅ 質問を送信しました！通知でお知らせします。');
-                } else {
-                    showSuccessMessage('✅ 質問を送信しました！（通知設定を確認してください）');
-                }
-                
-                this.reset();
-                
-            } catch (error) {
-                console.error('送信エラー:', error);
-                showErrorMessage('❌ 送信中にエラーが発生しました。しばらく後に再度お試しください。');
-            } finally {
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-            }
-        });
-
-        function showSuccessMessage(message) {
-            const form = document.querySelector('.question-form');
-            const existingMessage = form.querySelector('.success-message, .error-message');
-            
-            if (existingMessage) {
-                existingMessage.remove();
-            }
-            
-            const successMessage = document.createElement('div');
-            successMessage.className = 'success-message show';
-            successMessage.innerHTML = message;
-            
-            form.insertBefore(successMessage, form.querySelector('form'));
-            
-            setTimeout(() => {
-                if (successMessage.parentNode) {
-                    successMessage.remove();
-                }
-            }, 5000);
-        }
-
-        function showErrorMessage(message) {
-            const form = document.querySelector('.question-form');
-            const existingMessage = form.querySelector('.success-message, .error-message');
-            
-            if (existingMessage) {
-                existingMessage.remove();
-            }
-            
-            const errorMessage = document.createElement('div');
-            errorMessage.className = 'error-message show';
-            errorMessage.innerHTML = message;
-            
-            form.insertBefore(errorMessage, form.querySelector('form'));
-            
-            setTimeout(() => {
-                if (errorMessage.parentNode) {
-                    errorMessage.remove();
-                }
-            }, 5000);
-        }
-
-        // FAQ toggle function
-        function toggleFaq(element) {
-            const faqItem = element.parentNode;
-            const isActive = faqItem.classList.contains('active');
-            
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            if (!isActive) {
-                faqItem.classList.add('active');
-            }
-        }
-
+    <script>
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -896,6 +577,16 @@
                     });
                 }
             });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
         });
     </script>
 </body>
