@@ -11,6 +11,14 @@
     <!-- キーワード最適化 -->
     <meta name="keywords" content="クイズアプリ,学習アプリ,暗記アプリ,無料,PWA,オフライン学習,CSV,学習分析,資格試験,勉強アプリ,フラッシュカード,記憶学習">
     
+    <!-- 高度SEOメタタグ -->
+    <meta name="rating" content="General">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="language" content="Japanese">
+    <meta name="geo.region" content="JP">
+    <meta name="geo.country" content="Japan">
+    
     <!-- Open Graph（SNS共有最適化） -->
     <meta property="og:title" content="Minguella - 無料学習支援クイズアプリ">
     <meta property="og:description" content="効率的な学習を実現する多機能クイズアプリ。間違い問題特化学習と詳細な学習分析で苦手克服をサポート。">
@@ -24,6 +32,15 @@
     <meta name="twitter:title" content="Minguella - 無料学習支援クイズアプリ">
     <meta name="twitter:description" content="効率的な学習を実現する多機能クイズアプリ。間違い問題特化学習と詳細な学習分析で苦手克服をサポート。">
     <meta name="twitter:image" content="https://minguella-website.netlify.app/">
+    
+    <!-- Apple Touch Icon & Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://minguella-quiz-v4.netlify.app">
     
     <!-- 構造化データ（JSON-LD） -->
     <script type="application/ld+json">
@@ -66,7 +83,15 @@
     <meta name="googlebot" content="index, follow">
     <link rel="canonical" href="https://minguella-website.netlify.app/">
     
-    <!-- 既存のCSS -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JXFB2MV2QN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JXFB2MV2QN');
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -297,6 +322,185 @@
             color: #333;
         }
 
+        /* Question Box Section */
+        .question-box {
+            padding: 80px 0;
+            background: #f0f8ff;
+        }
+
+        .question-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .question-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .question-form h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .faq-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .faq-list {
+            space-y: 1rem;
+        }
+
+        .faq-item {
+            border: 1px solid #e1e8ed;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1rem 1.5rem;
+            background: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+
+        .faq-question span:first-child {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            background: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1rem 1.5rem;
+            max-height: 200px;
+        }
+
+        .faq-answer p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Success/Error Messages */
+        .success-message, .error-message {
+            display: none;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .success-message {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .error-message {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            color: white;
+        }
+
+        .success-message.show, .error-message.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
         /* Footer */
         .footer {
             background: #333;
@@ -346,6 +550,11 @@
                 grid-template-columns: 1fr;
             }
 
+            .question-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -389,6 +598,7 @@
                     <ul class="nav-links">
                         <li><a href="#features">機能</a></li>
                         <li><a href="#benefits">メリット</a></li>
+                        <li><a href="#questions">質問箱</a></li>
                         <li><a href="#start">無料で始める</a></li>
                     </ul>
                 </nav>
@@ -526,8 +736,108 @@
         </div>
     </section>
 
+    <!-- Question Box Section -->
+    <section id="questions" class="question-box">
+        <div class="container">
+            <h2 class="section-title">💬 質問箱</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #666;">
+                Minguellaについて気になることがあれば、お気軽にご質問ください！
+            </p>
+            
+            <div class="question-container">
+                <div class="question-form-section">
+                    <div class="question-form">
+                        <h3>📝 質問を送る</h3>
+                        <form id="questionForm">
+                            <div class="form-group">
+                                <label for="questionType">質問カテゴリー</label>
+                                <select id="questionType" required>
+                                    <option value="">選択してください</option>
+                                    <option value="使い方">使い方について</option>
+                                    <option value="機能">機能について</option>
+                                    <option value="技術">技術的な質問</option>
+                                    <option value="要望">機能要望・改善提案</option>
+                                    <option value="その他">その他</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="questionText">質問内容</label>
+                                <textarea id="questionText" placeholder="質問内容を詳しく教えてください..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contactEmail">メールアドレス（任意）</label>
+                                <input type="email" id="contactEmail" placeholder="返答が必要な場合はメールアドレスをご入力ください">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                📤 質問を送信
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="faq-section">
+                    <h3>❓ よくある質問</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Q: アプリはどのデバイスで使えますか？</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>PC、タブレット、スマートフォンなど、ブラウザがあるすべてのデバイスでご利用いただけます。PWA対応により、アプリのようにインストールすることも可能です。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Q: 本当に完全無料ですか？</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>はい、Minguellaの全機能を完全無料でご利用いただけます。隠れた料金や制限はありません。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Q: データはどこに保存されますか？</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>学習データは基本的にお使いのデバイスにローカル保存されます。プライバシーを重視した設計で、外部サーバーに個人情報が送信されることはありません。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Q: CSVで大量の問題をインポートできますか？</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>はい、CSV一括インポート機能により、大量の問題を効率的に登録できます。教育機関での大規模な問題集作成にも対応しています。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Q: 学習データの分析機能はどの程度詳細ですか？</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>正答率、分野別成績、解答履歴、苦手分野の特定など、詳細な学習分析レポートを提供します。データに基づいた効果的な学習計画を立てることができます。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
-    <section id="start" class="hero">
+    <section id="start" class="final-cta">
         <div class="container">
             <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">🚀 今すぐMinguellaで学習効率を上げよう</h2>
             <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
@@ -547,6 +857,7 @@
                     <a href="https://minguella-quiz-v4.netlify.app" target="_blank">アプリを開く</a>
                     <a href="#features">機能詳細</a>
                     <a href="#benefits">メリット</a>
+                    <a href="#questions">質問箱</a>
                     <a href="mailto:contact@minguella.com">お問い合わせ</a>
                 </div>
                 <p>&copy; 2024 Minguella - 無料学習支援クイズアプリ. All rights reserved.</p>
@@ -555,16 +866,266 @@
         </div>
     </footer>
 
-    <!-- Google Analytics（実際のトラッキングIDに置き換え） -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JXFB2MV2QN"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-JXFB2MV2QN');
-    </script>
+        // Webhook設定（実際のURLに置き換えてください）
+        const WEBHOOK_CONFIG = {
+            slack: {
+                enabled: true,
+                webhookUrl: 'https://hooks.slack.com/services/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'
+            },
+            discord: {
+                enabled: true,
+                webhookUrl: 'https://discord.com/api/webhooks/1410620847982645289/jHSa6Put3fdov51sKeXq3o9eo2wwdmm6w-8ooqib7tCqGZSdRon7PI39Wx2wb-jIaGu9'
+            }
+        };
 
-    <script>
+        // Slack通知関数
+        async function sendToSlack(questionData) {
+            if (!WEBHOOK_CONFIG.slack.enabled || WEBHOOK_CONFIG.slack.webhookUrl === 'YOUR_SLACK_WEBHOOK_URL_HERE') {
+                return false;
+            }
+
+            const message = {
+                text: "📝 新しい質問が届きました！",
+                blocks: [
+                    {
+                        type: "header",
+                        text: {
+                            type: "plain_text",
+                            text: "🎯 Minguella 質問箱"
+                        }
+                    },
+                    {
+                        type: "section",
+                        fields: [
+                            {
+                                type: "mrkdwn",
+                                text: `*カテゴリー:*\n${questionData.type}`
+                            },
+                            {
+                                type: "mrkdwn",
+                                text: `*送信日時:*\n${new Date(questionData.timestamp).toLocaleString('ja-JP')}`
+                            }
+                        ]
+                    },
+                    {
+                        type: "section",
+                        text: {
+                            type: "mrkdwn",
+                            text: `*質問内容:*\n${questionData.question}`
+                        }
+                    }
+                ]
+            };
+
+            if (questionData.email) {
+                message.blocks.push({
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: `*連絡先:* ${questionData.email}`
+                    }
+                });
+            }
+
+            try {
+                const response = await fetch(WEBHOOK_CONFIG.slack.webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(message)
+                });
+
+                return response.ok;
+            } catch (error) {
+                console.error('Slack通知エラー:', error);
+                return false;
+            }
+        }
+
+        // Discord通知関数
+        async function sendToDiscord(questionData) {
+            if (!WEBHOOK_CONFIG.discord.enabled || WEBHOOK_CONFIG.discord.webhookUrl === 'YOUR_DISCORD_WEBHOOK_URL_HERE') {
+                return false;
+            }
+
+            const embed = {
+                title: "🎯 新しい質問が届きました！",
+                color: 0x667eea,
+                fields: [
+                    {
+                        name: "📂 カテゴリー",
+                        value: questionData.type,
+                        inline: true
+                    },
+                    {
+                        name: "📅 送信日時",
+                        value: new Date(questionData.timestamp).toLocaleString('ja-JP'),
+                        inline: true
+                    },
+                    {
+                        name: "❓ 質問内容",
+                        value: questionData.question,
+                        inline: false
+                    }
+                ],
+                footer: {
+                    text: "Minguella 質問箱システム"
+                },
+                timestamp: questionData.timestamp
+            };
+
+            if (questionData.email) {
+                embed.fields.push({
+                    name: "📧 連絡先",
+                    value: questionData.email,
+                    inline: false
+                });
+            }
+
+            const message = {
+                username: "Minguella Bot",
+                embeds: [embed]
+            };
+
+            try {
+                const response = await fetch(WEBHOOK_CONFIG.discord.webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(message)
+                });
+
+                return response.ok;
+            } catch (error) {
+                console.error('Discord通知エラー:', error);
+                return false;
+            }
+        }
+
+        // 統合通知関数
+        async function sendNotifications(questionData) {
+            const results = [];
+            
+            if (WEBHOOK_CONFIG.slack.enabled) {
+                const slackResult = await sendToSlack(questionData);
+                results.push({ platform: 'Slack', success: slackResult });
+            }
+            
+            if (WEBHOOK_CONFIG.discord.enabled) {
+                const discordResult = await sendToDiscord(questionData);
+                results.push({ platform: 'Discord', success: discordResult });
+            }
+            
+            return results.some(result => result.success);
+        }
+
+        // Question form submission
+        document.getElementById('questionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            
+            submitButton.textContent = '📤 送信中...';
+            submitButton.disabled = true;
+            
+            const formData = {
+                type: document.getElementById('questionType').value,
+                question: document.getElementById('questionText').value,
+                email: document.getElementById('contactEmail').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            try {
+                const notificationSuccess = await sendNotifications(formData);
+                
+                if (notificationSuccess) {
+                    console.log('質問通知送信成功');
+                } else {
+                    console.log('通知送信は失敗しましたが、質問は記録されました');
+                }
+                
+                const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+                questions.push(formData);
+                localStorage.setItem('questions', JSON.stringify(questions));
+                
+                showSuccessMessage();
+                this.reset();
+                
+            } catch (error) {
+                console.error('送信エラー:', error);
+                showErrorMessage();
+            } finally {
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }
+        });
+
+        function showSuccessMessage() {
+            const form = document.querySelector('.question-form');
+            const existingMessage = form.querySelector('.success-message, .error-message');
+            
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message show';
+            successMessage.innerHTML = '✅ 質問を送信しました！通知でお知らせします。';
+            
+            form.insertBefore(successMessage, form.querySelector('form'));
+            
+            setTimeout(() => {
+                successMessage.remove();
+            }, 5000);
+        }
+
+        function showErrorMessage() {
+            const form = document.querySelector('.question-form');
+            const existingMessage = form.querySelector('.success-message, .error-message');
+            
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message show';
+            errorMessage.style.cssText = `
+                display: block;
+                background: linear-gradient(45deg, #f44336, #d32f2f);
+                color: white;
+                padding: 1rem;
+                border-radius: 10px;
+                margin-bottom: 1rem;
+                text-align: center;
+                animation: fadeInUp 0.5s ease;
+            `;
+            errorMessage.innerHTML = '❌ 送信中にエラーが発生しました。しばらく後に再度お試しください。';
+            
+            form.insertBefore(errorMessage, form.querySelector('form'));
+            
+            setTimeout(() => {
+                errorMessage.remove();
+            }, 5000);
+        }
+
+        // FAQ toggle function
+        function toggleFaq(element) {
+            const faqItem = element.parentNode;
+            const isActive = faqItem.classList.contains('active');
+            
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -591,5 +1152,3 @@
     </script>
 </body>
 </html>
-
-
