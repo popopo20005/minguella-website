@@ -858,7 +858,7 @@
                     <a href="#features">機能詳細</a>
                     <a href="#benefits">メリット</a>
                     <a href="#questions">質問箱</a>
-                    <a href="mailto:contact@minguella.com">お問い合わせ</a>
+                    <a href="mailto:minguella2025@gmail.com">お問い合わせ</a>
                 </div>
                 <p>&copy; 2024 Minguella - 無料学習支援クイズアプリ. All rights reserved.</p>
                 <p>効率的な暗記学習で、あなたの目標達成をサポートします。</p>
@@ -881,7 +881,7 @@
 
         // Slack通知関数
         async function sendToSlack(questionData) {
-            if (!WEBHOOK_CONFIG.slack.enabled || WEBHOOK_CONFIG.slack.webhookUrl === 'YOUR_SLACK_WEBHOOK_URL_HERE') {
+            if (!WEBHOOK_CONFIG.slack.enabled || WEBHOOK_CONFIG.slack.webhookUrl === 'https://hooks.slack.com/services/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') {
                 return false;
             }
 
@@ -946,7 +946,7 @@
 
         // Discord通知関数
         async function sendToDiscord(questionData) {
-            if (!WEBHOOK_CONFIG.discord.enabled || WEBHOOK_CONFIG.discord.webhookUrl === 'YOUR_DISCORD_WEBHOOK_URL_HERE') {
+            if (!WEBHOOK_CONFIG.discord.enabled || WEBHOOK_CONFIG.discord.webhookUrl === 'https://discord.com/api/webhooks/1410620847982645289/jHSa6Put3fdov51sKeXq3o9eo2wwdmm6w-8ooqib7tCqGZSdRon7PI39Wx2wb-jIaGu9') {
                 return false;
             }
 
@@ -1152,3 +1152,4 @@
     </script>
 </body>
 </html>
+
